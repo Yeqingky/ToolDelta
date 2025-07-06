@@ -1108,6 +1108,26 @@ url = "http://mirrors.aliyun.com/pypi/simple"
 reference = "mirrors"
 
 [[package]]
+name = "nbtlib"
+version = "2.0.4"
+description = "A python package to read and edit nbt data"
+optional = false
+python-versions = ">=3.8,<4.0"
+groups = ["main"]
+files = [
+    {file = "nbtlib-2.0.4-py3-none-any.whl", hash = "sha256:38d571fbf2f7ebd640639461b47fc79919a8ea8e74633ffcc8aa6b2acfc9c889"},
+    {file = "nbtlib-2.0.4.tar.gz", hash = "sha256:d4b861047fb9beb546a2e3f3b776dc61b0fb5831375752a39961882e2f76cc93"},
+]
+
+[package.dependencies]
+numpy = "*"
+
+[package.source]
+type = "legacy"
+url = "http://mirrors.aliyun.com/pypi/simple"
+reference = "mirrors"
+
+[[package]]
 name = "numpy"
 version = "2.1.1"
 description = "Fundamental package for array computing in Python"
@@ -1903,4 +1923,4 @@ reference = "mirrors"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "ec5ebea9b81a43e59769e2a317af872e2eb765bad46490e1933c13c55f6f549f"
+content-hash = "fa52e524cc8b32512122c9402df1a36cf682b328cf48aac7c19b3f49af63ec58"
