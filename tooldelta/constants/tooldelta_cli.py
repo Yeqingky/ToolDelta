@@ -80,7 +80,7 @@ PLUGIN_TYPE_MAPPING = {
 }
 "插件属性名映射"
 
-TDSPECIFIC_MIRROR = "https://github.tooldelta.top"
+TDSPECIFIC_MIRROR = "https://github.yeqing.net"
 "ToolDelta的github镜像"
 
 TDSPECIFIC_GITHUB_DOWNLOAD_URL = (
@@ -96,7 +96,7 @@ TDREPO_URL = (
 TDDEPENDENCY_REPO_RAW = "ToolDelta-Basic/DependencyLibrary"
 TDDEPENDENCY_REPO = "https://raw.githubusercontent.com/" + TDDEPENDENCY_REPO_RAW
 
-PLUGIN_MARKET_SOURCE_OFFICIAL = "https://github.tooldelta.top/https://raw.githubusercontent.com/ToolDelta-Basic/PluginMarket/main"
+PLUGIN_MARKET_SOURCE_OFFICIAL = "https://github.yeqing.net/https://raw.githubusercontent.com/ToolDelta-Basic/PluginMarket/main"
 
 
 class LaunchMode(IntEnum):

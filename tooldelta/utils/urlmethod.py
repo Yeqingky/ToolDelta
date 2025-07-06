@@ -27,7 +27,7 @@ init(autoreset=True)
 
 # def get_avali_github_url(self):
 #     """自动选择最佳镜像地址"""
-#     url_list = ["https://ghp.ci", "https://github.tooldelta.top"]
+#     url_list = ["https://ghp.ci", "https://github.yeqing.net"]
 #     try:
 #         if not Config.get_cfg(
 #                 "ToolDelta基本配置.json", {"是否使用github镜像": bool}
@@ -49,7 +49,7 @@ init(autoreset=True)
 #                 return self.url
 #         except requests.RequestException:
 #             continue
-#     self.url = "https://github.tooldelta.top/https://raw.githubusercontent.com"
+#     self.url = "https://github.yeqing.net/https://raw.githubusercontent.com"
 #     return self.url
 
 
@@ -66,11 +66,11 @@ def get_fastest_github_mirror():
     # fmts.print_inf("正在对各 GitHub 镜像进行测速 (这需要 5s) ...")
     # res = test_site_latency([
     #     "https://gh-proxy.com/",
-    #     "https://github.tooldelta.top",
+    #     "https://github.yeqing.net",
     # ])
     # fmts.print_suc(f"检测完成: 将使用 {(site := res[0][0])}")
     # return site
-    return "https://github.tooldelta.top"
+    return "https://github.yeqing.net"
 
 
 async def download_file_urls(download_url2dst: list[tuple[str, str]]) -> None:
