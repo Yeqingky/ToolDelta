@@ -5,7 +5,7 @@ import subprocess
 import threading
 import time
 
-from ...mc_bytes_packet.pool import bytes_packet_by_name
+from ...mc_bytes_packet.pool import bytes_packet_by_id
 from ... import utils
 from ...constants import SysStatus, PacketIDS
 from ...packets import Packet_CommandOutput
@@ -168,7 +168,9 @@ class FrameNeOmgAccessPoint(StandardFrame):
         )
         return free_port
 
-    @utils.thread_func("NeOmega 信息显示线程", thread_level=utils.ToolDeltaThread.SYSTEM)
+    @utils.thread_func(
+        "NeOmega 信息显示线程", thread_level=utils.ToolDeltaThread.SYSTEM
+    )
     def _msg_show_thread(self, launch_event: threading.Event) -> None:
         """显示来自 NeOmega 的信息"""
         if self.neomg_proc is None or self.neomg_proc.stdout is None:
@@ -206,7 +208,7 @@ class FrameNeOmgAccessPoint(StandardFrame):
         if self.status != SysStatus.LAUNCHING:
             return SystemError("接入点无法连接到服务器")
         fmts.print_inf("等待接入点就绪..")
-        while not launch_event.wait(timeout = 1):
+        while not launch_event.wait(timeout=1):
             if self.exit_event.is_set():
                 return SystemError("NeOmage 启动出现问题.")
             pass
@@ -294,13 +296,13 @@ class FrameNeOmgAccessPoint(StandardFrame):
         ):
             raise ValueError("未连接到接入点")
 
+        pkID: int = self.omega.get_packet_name_to_id_mapping(pkt_type)  # type: ignore
         if type(pkt) is dict:
-            packetType: int = self.omega.get_packet_name_to_id_mapping(pkt_type)  # type: ignore
-            self.dict_packet_handler(packetType, pkt)
+            self.dict_packet_handler(pkID, pkt)
         elif type(pkt) is bytes:
-            real_pkt = bytes_packet_by_name(pkt_type)
+            real_pkt = bytes_packet_by_id(pkID)
             real_pkt.decode(pkt)
-            self.bytes_packet_handler(real_pkt.real_packet_id(), real_pkt)
+            self.bytes_packet_handler(pkID, real_pkt)
 
     def check_avaliable(self):
         if self.status != SysStatus.RUNNING:
@@ -362,7 +364,7 @@ class FrameNeOmgAccessPoint(StandardFrame):
         self.check_avaliable()
         self.omega.send_settings_command(cmd)
 
-    def sendPacket(self, pckID: int, pck: dict | BaseBytesPacket) -> None:
+    def sendPacket(self, pkID: int, pk: dict | bytes | BaseBytesPacket) -> None:
         """发送数据包
 
         Args:
@@ -370,11 +372,7 @@ class FrameNeOmgAccessPoint(StandardFrame):
             pck (dict | BaseBytesPacket): 数据包内容dict
         """
         self.check_avaliable()
-        if type(pck) is dict:
-            self.omega.send_game_packet_in_json_as_is(pckID, pck)
-        else:
-            self.omega.send_game_packet_in_bytes(pckID, pck.encode())  # type: ignore
-
+        self.omega.send_packet(pkID, pk)
     def blobHashHolder(self) -> BlobHashHolder:
         """blobHashHolder 返回当前结点的 Blob hash cache 缓存数据集的持有人
 
